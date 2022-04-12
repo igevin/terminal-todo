@@ -16,4 +16,12 @@ public enum Command {
                 .filter(command -> line.toUpperCase().startsWith(command.toString()))
                 .findFirst().orElse(UNKNOWN);
     }
+
+    public static final String UNKNOWN_NAME = "UNKNOWN";
+    public static final String LIST_NAME = "LIST";
+    public static final String NEW_NAME = "NEW";
+    public static final String CHECK_NAME = "CHECK";
+    public static final String UNCHECK_NAME = "UNCHECK";
+    public static final String UPDATE_NAME = "UPDATE";
+    public static final String DELETE_NAME = "DELETE";
 }
