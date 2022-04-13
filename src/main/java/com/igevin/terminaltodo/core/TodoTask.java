@@ -39,16 +39,18 @@ public class TodoTask {
         return String.format("id=%s, content=%s, isChecked=%s", id, content, checked);
     }
 
-    public TodoTask checkTask() {
+    private TodoTask changeTaskStatus(boolean checked) {
         updateUpdateTime();
-        checked = true;
+        this.checked = checked;
         return this;
     }
 
+    public TodoTask checkTask() {
+        return changeTaskStatus(true);
+    }
+
     public TodoTask uncheckTask() {
-        updateUpdateTime();
-        checked = false;
-        return this;
+        return changeTaskStatus(false);
     }
 
     public TodoTask modifyTask(String content) {

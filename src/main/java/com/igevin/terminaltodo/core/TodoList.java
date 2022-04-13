@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
@@ -23,6 +24,12 @@ public class TodoList {
 
     public TodoTask addTask(String content) {
         return addTask(new TodoTask(content));
+    }
+
+    public Optional<TodoTask> getTaskById(long taskId) {
+        return tasks.stream().parallel()
+                .filter(x -> x.getId().equals(taskId))
+                .findAny();
     }
 
     public void removeTask(long taskId) {
