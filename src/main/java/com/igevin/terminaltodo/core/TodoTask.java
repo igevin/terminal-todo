@@ -4,10 +4,12 @@ import com.igevin.terminaltodo.supporting.ApplicationContextTool;
 import com.igevin.terminaltodo.supporting.id.IdGenerator;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
+@ToString
 public class TodoTask {
     private final Long id;
     private String content;
@@ -31,6 +33,10 @@ public class TodoTask {
 
     private void updateUpdateTime() {
         updateTime = LocalDateTime.now();
+    }
+
+    public String toStringBrief() {
+        return String.format("id=%s, content=%s, isChecked=%s", id, content, checked);
     }
 
     public TodoTask checkTask() {

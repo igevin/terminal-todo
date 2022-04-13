@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 public enum Command {
     UNKNOWN,
     LIST,
-    NEW,
+    ADD,
     CHECK,
     UNCHECK,
     UPDATE,
@@ -19,7 +19,7 @@ public enum Command {
 
     public static final String UNKNOWN_NAME = "UNKNOWN";
     public static final String LIST_NAME = "LIST";
-    public static final String NEW_NAME = "NEW";
+    public static final String ADD_NAME = "ADD";
     public static final String CHECK_NAME = "CHECK";
     public static final String UNCHECK_NAME = "UNCHECK";
     public static final String UPDATE_NAME = "UPDATE";

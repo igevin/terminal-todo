@@ -16,8 +16,13 @@ public class TodoList {
         tasks = new LinkedList<>();
     }
 
-    public void addTask(String content) {
-        tasks.add(new TodoTask(content));
+    public TodoTask addTask(TodoTask task) {
+        tasks.add(task);
+        return task;
+    }
+
+    public TodoTask addTask(String content) {
+        return addTask(new TodoTask(content));
     }
 
     public void removeTask(long taskId) {

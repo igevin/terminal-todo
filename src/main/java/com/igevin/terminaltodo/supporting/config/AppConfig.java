@@ -1,8 +1,8 @@
 package com.igevin.terminaltodo.supporting.config;
 
 import com.igevin.terminaltodo.core.TodoList;
+import com.igevin.terminaltodo.supporting.id.AtomicIdGenerator;
 import com.igevin.terminaltodo.supporting.id.IdGenerator;
-import com.igevin.terminaltodo.supporting.id.TimestampIdGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
     @Bean
     public IdGenerator getIdGenerator() {
-        return new TimestampIdGenerator();
+//        return new TimestampIdGenerator();
+        return new AtomicIdGenerator();
     }
 
     @Bean
