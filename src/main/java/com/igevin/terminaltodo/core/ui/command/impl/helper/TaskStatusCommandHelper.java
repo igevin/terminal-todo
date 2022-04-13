@@ -19,6 +19,7 @@ public class TaskStatusCommandHelper {
     public void execute(String line, boolean checked) {
         long taskId = parseTaskId(line);
         changeTaskStatus(taskId, checked);
+        System.out.println("任务状态已修改为： " + (checked ? "已完成" : "未完成"));
     }
 
     private long parseTaskId(String line) {

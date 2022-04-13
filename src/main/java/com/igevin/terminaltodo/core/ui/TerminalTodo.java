@@ -14,15 +14,30 @@ public class TerminalTodo {
     private CommandExecutorMapper commandExecutorMapper;
 
     public void start() {
-        System.out.println("请输入命令");
+        System.out.println("请输入命令...\n");
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
+
         while (!line.equals("exit")) {
-            System.out.println(line + ":");
-            Command command = Command.parseFromInput(line);
-            CommandExecutor commandExecutor = commandExecutorMapper.getCommandExecutor(command);
-            commandExecutor.execute(line);
+            if (!nextLoop(line)) {
+                runCommand(line);
+            }
             line = in.nextLine();
+        }
+    }
+
+    private boolean nextLoop(String line) {
+        return "".equals(line.trim());
+    }
+
+    private void runCommand(String line) {
+        Command command = Command.parseFromInput(line);
+        CommandExecutor commandExecutor = commandExecutorMapper.getCommandExecutor(command);
+        try {
+            commandExecutor.execute(line);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("\n\n请重新输入命令...");
         }
     }
 
