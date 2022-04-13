@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component(Command.UPDATE_NAME)
 public class UpdateCommandExecutor implements CommandExecutor {
     @Override
-    public void execute() {
+    public void execute(String line) {
         System.out.println("run update command");
     }
 }

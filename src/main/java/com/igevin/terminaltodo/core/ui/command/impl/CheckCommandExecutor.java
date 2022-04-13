@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component(Command.CHECK_NAME)
 public class CheckCommandExecutor implements CommandExecutor {
     @Override
-    public void execute() {
+    public void execute(String line) {
         System.out.println("run check command");
     }
 }

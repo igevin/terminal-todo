@@ -21,7 +21,7 @@ public class TerminalTodo {
             System.out.println(line + ":");
             Command command = Command.parseFromInput(line);
             CommandExecutor commandExecutor = commandExecutorMapper.getCommandExecutor(command);
-            commandExecutor.execute();
+            commandExecutor.execute(line);
             line = in.nextLine();
         }
     }

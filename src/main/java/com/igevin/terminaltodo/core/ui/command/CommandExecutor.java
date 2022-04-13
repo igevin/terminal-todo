@@ -1,5 +1,5 @@
 package com.igevin.terminaltodo.core.ui.command;
 
 public interface CommandExecutor {
-    void execute();
+    void execute(String line);
 }

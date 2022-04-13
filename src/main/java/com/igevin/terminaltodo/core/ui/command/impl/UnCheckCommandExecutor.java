@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component(Command.UNCHECK_NAME)
 public class UnCheckCommandExecutor implements CommandExecutor {
     @Override
-    public void execute() {
+    public void execute(String line) {
         System.out.println("run uncheck command");
     }
 }
