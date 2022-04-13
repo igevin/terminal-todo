@@ -33,9 +33,7 @@ public class TodoList {
     }
 
     public void removeTask(long taskId) {
-        TodoTask task = tasks.stream().parallel()
-                .filter(x -> x.getId().equals(taskId))
-                .findAny().orElse(null);
+        TodoTask task = getTaskById(taskId).orElse(null);
         tasks.remove(task);
     }
 

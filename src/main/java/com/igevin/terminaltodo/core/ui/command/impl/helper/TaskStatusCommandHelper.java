@@ -11,24 +11,19 @@ import java.util.Optional;
 public class TaskStatusCommandHelper {
     @Autowired
     private TodoList todoList;
+    @Autowired
+    private CommandParseHelper commandParseHelper;
 
     public TaskStatusCommandHelper(TodoList todoList) {
         this.todoList = todoList;
     }
 
     public void execute(String line, boolean checked) {
-        long taskId = parseTaskId(line);
+        long taskId = commandParseHelper.parseTaskId(line);
         changeTaskStatus(taskId, checked);
         System.out.println("任务状态已修改为： " + (checked ? "已完成" : "未完成"));
     }
 
-    private long parseTaskId(String line) {
-        int firstSpace = line.indexOf(" ");
-        if (firstSpace == -1 || firstSpace == line.length() - 1) {
-            return 0;
-        }
-        return Long.parseLong(line.substring(firstSpace + 1).trim());
-    }
 
     private void changeTaskStatus(long taskId, boolean checked) {
         Optional<TodoTask> todoTask = todoList.getTaskById(taskId);

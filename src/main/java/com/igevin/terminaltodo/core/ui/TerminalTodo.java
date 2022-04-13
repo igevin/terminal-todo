@@ -16,13 +16,13 @@ public class TerminalTodo {
     public void start() {
         System.out.println("请输入命令...\n");
         Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
+        String line = in.nextLine().trim();
 
         while (!line.equals("exit")) {
             if (!nextLoop(line)) {
                 runCommand(line);
             }
-            line = in.nextLine();
+            line = in.nextLine().trim();
         }
     }
 
