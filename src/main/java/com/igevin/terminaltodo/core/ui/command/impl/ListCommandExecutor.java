@@ -17,15 +17,10 @@ public class ListCommandExecutor implements CommandExecutor {
 
     @Override
     public void execute(String line) {
-        System.out.println("run list command");
-        parseAndExecute(line);
-    }
-
-    private void parseAndExecute(String line) {
         Parameter param = parse(line);
-        System.out.println("param: " + param);
         executeWithParam(param);
     }
+
 
     private Parameter parse(String line) {
         String[] params = line.toLowerCase().split(" ");
@@ -53,7 +48,7 @@ public class ListCommandExecutor implements CommandExecutor {
     private void printTasks(List<TodoTask> tasks) {
         System.out.println("任务列表为：");
         for (TodoTask task : tasks) {
-            System.out.println(task);
+            System.out.println(task.toStringBrief());
         }
     }
 
