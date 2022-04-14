@@ -2,6 +2,7 @@ package com.igevin.terminaltodo.core.ui.command.impl;
 
 import com.igevin.terminaltodo.core.TodoList;
 import com.igevin.terminaltodo.core.TodoTask;
+import com.igevin.terminaltodo.core.todo.CurrentTodoList;
 import com.igevin.terminaltodo.core.ui.command.Command;
 import com.igevin.terminaltodo.core.ui.command.CommandExecutor;
 import com.igevin.terminaltodo.core.ui.command.impl.helper.CommandParseHelper;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Component(Command.UPDATE_NAME)
 public class UpdateCommandExecutor implements CommandExecutor {
     @Autowired
-    private TodoList todoList;
+    private CurrentTodoList todoList;
     @Autowired
     private CommandParseHelper commandParseHelper;
 
@@ -27,7 +28,7 @@ public class UpdateCommandExecutor implements CommandExecutor {
     }
 
     private void updateTask(long id, String content) {
-        TodoTask task = todoList.getTaskById(id).orElse(null);
+        TodoTask task = todoList.getTodoList().getTaskById(id).orElse(null);
         if (task == null) {
             System.out.println("任务不存在");
             return;

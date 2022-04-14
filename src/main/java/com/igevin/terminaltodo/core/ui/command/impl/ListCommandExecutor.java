@@ -2,6 +2,7 @@ package com.igevin.terminaltodo.core.ui.command.impl;
 
 import com.igevin.terminaltodo.core.TodoList;
 import com.igevin.terminaltodo.core.TodoTask;
+import com.igevin.terminaltodo.core.todo.CurrentTodoList;
 import com.igevin.terminaltodo.core.ui.command.Command;
 import com.igevin.terminaltodo.core.ui.command.CommandExecutor;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.List;
 @Component(Command.LIST_NAME)
 public class ListCommandExecutor implements CommandExecutor {
     @Autowired
-    private TodoList todoList;
+    private CurrentTodoList todoList;
 
     @Override
     public void execute(String line) {
@@ -34,13 +35,13 @@ public class ListCommandExecutor implements CommandExecutor {
     private void executeWithParam(Parameter parameter) {
         switch (parameter) {
             case ALL:
-                printTasks(todoList.listAllTasks());
+                printTasks(todoList.getTodoList().listAllTasks());
                 break;
             case CHECKED:
-                printTasks(todoList.listCheckedTasks());
+                printTasks(todoList.getTodoList().listCheckedTasks());
                 break;
             default:
-                printTasks(todoList.listUncheckedTasks());
+                printTasks(todoList.getTodoList().listUncheckedTasks());
                 break;
         }
     }

@@ -14,8 +14,8 @@ public class AppConfig {
         return new AtomicIdGenerator();
     }
 
-    @Bean
-    public TodoList getTodoList() {
-        return new TodoList();
-    }
+//    @Bean
+//    public TodoList getTodoList() {
+//        return new TodoList();
+//    }
 }
