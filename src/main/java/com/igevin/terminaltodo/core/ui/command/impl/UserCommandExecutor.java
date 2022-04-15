@@ -3,18 +3,26 @@ package com.igevin.terminaltodo.core.ui.command.impl;
 import com.igevin.terminaltodo.core.ui.command.Command;
 import com.igevin.terminaltodo.core.ui.command.CommandExecutor;
 import com.igevin.terminaltodo.core.ui.command.impl.helper.CommandParseHelper;
+import com.igevin.terminaltodo.core.user.User;
+import com.igevin.terminaltodo.core.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 @Component(Command.USER_NAME)
 public class UserCommandExecutor implements CommandExecutor {
     @Autowired
     private CommandParseHelper commandParseHelper;
+    @Autowired
+    private UserService userService;
+
     private final Map<String, Runnable> commandMap = new HashMap<>();
+    private final Scanner in = new Scanner(System.in);
 
     {
         initCommandMap();
@@ -32,7 +40,6 @@ public class UserCommandExecutor implements CommandExecutor {
 
     @Override
     public void execute(String line) {
-        System.out.println("user command");
         parseCommand(line);
     }
 
@@ -46,27 +53,51 @@ public class UserCommandExecutor implements CommandExecutor {
     }
 
     private void executeNew() {
-        System.out.println("new");
+        System.out.println("请输入用户名：");
+        String username = in.next().trim();
+        System.out.println("请输入密码：");
+        String password = in.next().trim();
+        User user = userService.createUser(username, password);
+        System.out.println("user created: " + user);
     }
 
     private void executeList() {
-        System.out.println("list");
+        System.out.println(userService.listUsers());
     }
 
     private void executeCurrent() {
-        System.out.println("current");
+        System.out.println(userService.getCurrentUser().orElse(null));
     }
 
     private void executeSwitch() {
-        System.out.println("switch");
+        System.out.println("请输入用户名：");
+        String username = in.next().trim();
+        boolean succeed = userService.switchUser(username);
+        if (succeed) {
+            System.out.println("切换用户成功");
+            return;
+        }
+        System.out.println("要切换的用户未登录");
     }
 
     private void executeLogin() {
-        System.out.println("login");
+        System.out.println("请输入用户名：");
+        String username = in.next().trim();
+        System.out.println("请输入密码：");
+        String password = in.next().trim();
+        if (userService.login(username, password)) {
+            System.out.println("login succeed");
+            return;
+        }
+        System.out.println("login failed");
     }
 
     private void executeLogout() {
-        System.out.println("logout");
+        if (!userService.getCurrentUser().isPresent()) {
+            return;
+        }
+        userService.logout(userService.getCurrentUser().get());
+        System.out.println("logout succeed");
     }
 
     private void executeDefault() {
