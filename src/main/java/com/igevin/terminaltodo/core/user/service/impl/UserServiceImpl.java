@@ -1,17 +1,22 @@
 package com.igevin.terminaltodo.core.user.service.impl;
 
+import com.google.common.eventbus.EventBus;
 import com.igevin.terminaltodo.core.user.User;
 import com.igevin.terminaltodo.core.user.Users;
+import com.igevin.terminaltodo.core.user.event.UserCreateEvent;
+import com.igevin.terminaltodo.core.user.event.UserSwitchEvent;
 import com.igevin.terminaltodo.core.user.service.UserService;
 import com.igevin.terminaltodo.core.user.state.CurrentUser;
 import com.igevin.terminaltodo.core.user.state.LoggedInUsers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@DependsOn(value = "eventBus")
 public class UserServiceImpl implements UserService {
     @Autowired
     private Users users;
@@ -19,11 +24,14 @@ public class UserServiceImpl implements UserService {
     private LoggedInUsers loggedInUsers;
     @Autowired
     private CurrentUser currentUser;
+    @Autowired
+    private EventBus eventBus;
 
     @Override
     public User createUser(String username, String password) {
         User user = new User(username, password);
         users.getUsers().add(user);
+        eventBus.post(new UserCreateEvent(user));
         return user;
     }
 
@@ -60,7 +68,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private void updateCurrentUser(User user) {
-        currentUser.setUser(Optional.of(user));
+        currentUser.setUser(Optional.ofNullable(user));
+        eventBus.post(new UserSwitchEvent(user));
     }
 
     @Override
@@ -77,6 +86,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout(String username) {
         loggedInUsers.getUsers().remove(username);
+        updateCurrentUser(null);
     }
 
     @Override

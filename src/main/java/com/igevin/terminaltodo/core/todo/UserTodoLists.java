@@ -3,25 +3,24 @@ package com.igevin.terminaltodo.core.todo;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.igevin.terminaltodo.core.TodoList;
-import com.igevin.terminaltodo.core.user.event.UserSwitchEvent;
+import com.igevin.terminaltodo.core.user.User;
+import com.igevin.terminaltodo.core.user.event.UserCreateEvent;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
 
-@Component("currentTodoList")
+@Component
 @DependsOn(value = "eventBus")
 @Getter
-public class CurrentTodoList {
+public class UserTodoLists {
     @Autowired
     private EventBus eventBus;
-    @Autowired
-    private UserTodoLists userTodoLists;
-
-    private final TodoList anonymousTodoList = new TodoList();
-    private TodoList todoList = anonymousTodoList;
+    private final Map<User, TodoList> userTodoListMap = new HashMap<>(10);
 
     @PostConstruct
     private void init() {
@@ -29,7 +28,8 @@ public class CurrentTodoList {
     }
 
     @Subscribe
-    private void handUserSwitchEvent(UserSwitchEvent event) {
-        this.todoList = userTodoLists.getUserTodoListMap().getOrDefault(event.getUser(), anonymousTodoList);
+    private void handUserCreateEvent(UserCreateEvent event) {
+        TodoList todoList = new TodoList();
+        userTodoListMap.put(event.getUser(), todoList);
     }
 }

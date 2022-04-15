@@ -1,6 +1,6 @@
 package com.igevin.terminaltodo.supporting.config;
 
-import com.igevin.terminaltodo.core.TodoList;
+import com.google.common.eventbus.EventBus;
 import com.igevin.terminaltodo.supporting.encryption.Encryption;
 import com.igevin.terminaltodo.supporting.encryption.impl.Sha512Encryption;
 import com.igevin.terminaltodo.supporting.id.AtomicIdGenerator;
@@ -18,5 +18,10 @@ public class AppConfig {
     @Bean
     public Encryption encryption() {
         return new Sha512Encryption();
+    }
+
+    @Bean(name = "eventBus")
+    public EventBus eventBus() {
+        return new EventBus();
     }
 }
