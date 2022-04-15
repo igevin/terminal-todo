@@ -1,6 +1,8 @@
 package com.igevin.terminaltodo.supporting.config;
 
 import com.igevin.terminaltodo.core.TodoList;
+import com.igevin.terminaltodo.supporting.encryption.Encryption;
+import com.igevin.terminaltodo.supporting.encryption.impl.Sha512Encryption;
 import com.igevin.terminaltodo.supporting.id.AtomicIdGenerator;
 import com.igevin.terminaltodo.supporting.id.IdGenerator;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +15,8 @@ public class AppConfig {
 //        return new TimestampIdGenerator();
         return new AtomicIdGenerator();
     }
-
-//    @Bean
-//    public TodoList getTodoList() {
-//        return new TodoList();
-//    }
+    @Bean
+    public Encryption encryption() {
+        return new Sha512Encryption();
+    }
 }
