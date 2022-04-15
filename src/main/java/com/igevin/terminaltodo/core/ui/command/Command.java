@@ -9,7 +9,8 @@ public enum Command {
     CHECK,
     UNCHECK,
     UPDATE,
-    DELETE;
+    DELETE,
+    USER;
 
     public static Command parseFromInput(String line) {
         return Stream.of(values())
@@ -24,4 +25,5 @@ public enum Command {
     public static final String UNCHECK_NAME = "UNCHECK";
     public static final String UPDATE_NAME = "UPDATE";
     public static final String DELETE_NAME = "DELETE";
+    public static final String USER_NAME = "USER";
 }
