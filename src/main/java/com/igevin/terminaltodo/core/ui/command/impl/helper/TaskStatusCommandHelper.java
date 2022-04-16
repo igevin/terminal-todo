@@ -1,6 +1,5 @@
 package com.igevin.terminaltodo.core.ui.command.impl.helper;
 
-import com.igevin.terminaltodo.core.TodoList;
 import com.igevin.terminaltodo.core.TodoTask;
 import com.igevin.terminaltodo.core.todo.CurrentTodoList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +17,20 @@ public class TaskStatusCommandHelper {
 
     public void execute(String line, boolean checked) {
         long taskId = commandParseHelper.parseTaskId(line);
-        changeTaskStatus(taskId, checked);
+        Optional<TodoTask> todoTask = todoList.getTodoList().getTaskById(taskId);
+        if (!todoTask.isPresent()) {
+            System.out.println("任务不存在");
+            return;
+        }
+        changeTaskStatus(todoTask.get(), checked);
         System.out.println("任务状态已修改为： " + (checked ? "已完成" : "未完成"));
     }
 
-
-    private void changeTaskStatus(long taskId, boolean checked) {
-        Optional<TodoTask> todoTask = todoList.getTodoList().getTaskById(taskId);
-        if (!todoTask.isPresent()) {
-            return;
-        }
+    private void changeTaskStatus(TodoTask task, boolean checked) {
         if (checked) {
-            todoTask.get().checkTask();
+            task.checkTask();
             return;
         }
-        todoTask.get().uncheckTask();
+        task.uncheckTask();
     }
 }
