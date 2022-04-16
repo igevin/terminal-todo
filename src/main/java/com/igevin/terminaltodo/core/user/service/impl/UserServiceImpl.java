@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean login(String username, String password) {
         User user = this.getUser(username);
-        if (this.validateUser(user, password)) {
+        if (user != null && this.validateUser(user, password)) {
             loggedInUsers.getUsers().put(username, user);
             updateCurrentUser(user);
             return true;
