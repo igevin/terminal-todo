@@ -1,0 +1,4 @@
+
+terminal-todo:
+  persistence:
+    storage: mysql

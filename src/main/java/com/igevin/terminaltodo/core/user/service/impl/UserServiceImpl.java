@@ -5,10 +5,12 @@ import com.igevin.terminaltodo.core.user.User;
 import com.igevin.terminaltodo.core.user.Users;
 import com.igevin.terminaltodo.core.user.event.UserCreateEvent;
 import com.igevin.terminaltodo.core.user.event.UserSwitchEvent;
+import com.igevin.terminaltodo.core.user.persistence.UserStorageService;
 import com.igevin.terminaltodo.core.user.service.UserService;
 import com.igevin.terminaltodo.core.user.state.CurrentUser;
 import com.igevin.terminaltodo.core.user.state.LoggedInUsers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@DependsOn(value = "eventBus")
+@DependsOn(value = {"userStorageService", "eventBus"})
 public class UserServiceImpl implements UserService {
     @Autowired
-    private Users users;
+    @Qualifier("userStorageService")
+    private UserStorageService userStorageService;
     @Autowired
     private LoggedInUsers loggedInUsers;
     @Autowired
@@ -29,17 +32,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(String username, String password) {
-        User user = new User(username, password);
-        users.getUsers().add(user);
+        User user = userStorageService.saveUser(username, password);
         eventBus.post(new UserCreateEvent(user));
         return user;
     }
 
     @Override
     public User getUser(String username) {
-        return users.getUsers().stream().parallel()
-                .filter(user -> user.getUsername().equals(username))
-                .findAny().orElse(null);
+        return userStorageService.getUser(username);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> listUsers() {
-        return users.getUsers();
+        return userStorageService.listUser();
     }
 
     @Override
