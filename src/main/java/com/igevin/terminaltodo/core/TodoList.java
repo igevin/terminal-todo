@@ -1,25 +1,22 @@
 package com.igevin.terminaltodo.core;
 
+import com.igevin.terminaltodo.core.todo.persistence.TodoListEntity;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
-import com.igevin.terminaltodo.core.user.User;
 import com.igevin.terminaltodo.supporting.ApplicationContextTool;
 import com.igevin.terminaltodo.supporting.id.IdGenerator;
 import lombok.Getter;
+import org.springframework.beans.BeanUtils;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Getter
 public class TodoList {
-//    private final List<TodoTask> tasks;
-    private Long id;
+    private final Long id;
     private String username;
-    private final LocalDateTime createTime = LocalDateTime.now();
-    private static UserTodoListService userTodoListService;
+    private LocalDateTime createTime = LocalDateTime.now();
+    private static final UserTodoListService userTodoListService;
     private static final IdGenerator idGenerator;
 
     static {
@@ -35,6 +32,12 @@ public class TodoList {
     public TodoList(String username) {
         this();
         this.username = username;
+    }
+
+    public TodoList(TodoListEntity entity) {
+        id = entity.getId();
+        username = entity.getUsername();
+        createTime = entity.getCreateTime();
     }
 
 
@@ -75,6 +78,12 @@ public class TodoList {
     public List<TodoTask> listCheckedTasks() {
 //        return tasks.stream().filter(TodoTask::isChecked).collect(Collectors.toList());
         return userTodoListService.listCheckedTasks(id);
+    }
+
+    public TodoListEntity toEntity() {
+        TodoListEntity todoListEntity = new TodoListEntity();
+        BeanUtils.copyProperties(this, todoListEntity);
+        return todoListEntity;
     }
 
 

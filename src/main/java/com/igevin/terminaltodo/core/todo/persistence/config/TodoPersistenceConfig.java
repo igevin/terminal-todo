@@ -2,11 +2,10 @@ package com.igevin.terminaltodo.core.todo.persistence.config;
 
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoTaskService;
-import com.igevin.terminaltodo.core.todo.persistence.impl.MysqlUserTodoListService;
-import com.igevin.terminaltodo.core.todo.persistence.impl.MysqlUserTodoTaskService;
+import com.igevin.terminaltodo.core.todo.persistence.impl.mysql.MysqlUserTodoListService;
+import com.igevin.terminaltodo.core.todo.persistence.impl.mysql.MysqlUserTodoTaskService;
 import com.igevin.terminaltodo.core.todo.persistence.impl.RedisUserTodoListService;
 import com.igevin.terminaltodo.core.todo.persistence.impl.RedisUserTodoTaskService;
-import com.igevin.terminaltodo.core.user.persistence.UserStorageService;
 import com.igevin.terminaltodo.supporting.config.properties.PersistenceConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

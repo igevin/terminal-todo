@@ -1,9 +1,11 @@
-package com.igevin.terminaltodo.core.todo.persistence.impl;
+package com.igevin.terminaltodo.core.todo.persistence.impl.mysql;
 
 import com.igevin.terminaltodo.core.TodoList;
 import com.igevin.terminaltodo.core.TodoTask;
+import com.igevin.terminaltodo.core.todo.persistence.TodoListEntity;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
 import com.igevin.terminaltodo.core.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,10 +14,15 @@ import java.util.Optional;
 
 @Service
 public class MysqlUserTodoListService implements UserTodoListService {
+    @Autowired
+    private TodoListMapper todoListMapper;
+    @Autowired
+    private MysqlUserTodoTaskService todoTaskService;
 
     @Override
     public TodoList createTodoList(TodoList todoList) {
-        return null;
+        todoListMapper.createTodoList(todoList.toEntity());
+        return todoList;
     }
 
     @Override
@@ -25,7 +32,8 @@ public class MysqlUserTodoListService implements UserTodoListService {
 
     @Override
     public TodoList getDefaultTodoList(String username) {
-        return null;
+        TodoListEntity entity = todoListMapper.getDefaultUserTodoList(username);
+        return new TodoList(entity);
     }
 
     @Override

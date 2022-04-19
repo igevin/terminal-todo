@@ -1,4 +1,4 @@
-package com.igevin.terminaltodo.core.todo.persistence.impl;
+package com.igevin.terminaltodo.core.todo.persistence.impl.mysql;
 
 import com.igevin.terminaltodo.core.TodoTask;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;

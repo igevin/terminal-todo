@@ -4,24 +4,20 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.igevin.terminaltodo.core.TodoList;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
-import com.igevin.terminaltodo.core.user.event.UserSwitchEvent;
-import lombok.Getter;
+import com.igevin.terminaltodo.core.user.event.UserCreateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
-@Component("currentTodoList")
-@DependsOn(value = "eventBus")
-@Getter
-public class CurrentTodoList {
+@Component
+@DependsOn(value = {"eventBus", "userTodoListService"})
+public class UserEventHandler {
     @Autowired
     private EventBus eventBus;
     @Autowired
     private UserTodoListService userTodoListService;
-    private TodoList todoList;
-    private final String anonymousUser = "anonymous";
 
     @PostConstruct
     private void init() {
@@ -29,10 +25,7 @@ public class CurrentTodoList {
     }
 
     @Subscribe
-    private void handUserSwitchEvent(UserSwitchEvent event) {
-        this.todoList = userTodoListService.getDefaultTodoList(event.getUser().getUsername());
-        if (this.todoList == null) {
-            this.todoList = new TodoList();
-        }
+    private void handUserCreateEvent(UserCreateEvent event) {
+        userTodoListService.createTodoList(new TodoList(event.getUser().getUsername()));
     }
 }
