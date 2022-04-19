@@ -17,6 +17,7 @@ import java.util.Map;
 @Component
 @DependsOn(value = "eventBus")
 @Getter
+@Deprecated
 public class UserTodoLists {
     @Autowired
     private EventBus eventBus;
