@@ -2,7 +2,6 @@ package com.igevin.terminaltodo.core.user.service.impl;
 
 import com.google.common.eventbus.EventBus;
 import com.igevin.terminaltodo.core.user.User;
-import com.igevin.terminaltodo.core.user.Users;
 import com.igevin.terminaltodo.core.user.event.UserCreateEvent;
 import com.igevin.terminaltodo.core.user.event.UserSwitchEvent;
 import com.igevin.terminaltodo.core.user.persistence.UserStorageService;

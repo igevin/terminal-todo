@@ -1,10 +1,12 @@
 package com.igevin.terminaltodo.core.user;
 
+import com.igevin.terminaltodo.core.user.persistence.UserEntity;
 import com.igevin.terminaltodo.supporting.ApplicationContextTool;
 import com.igevin.terminaltodo.supporting.encryption.Encryption;
 import com.igevin.terminaltodo.supporting.id.IdGenerator;
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.springframework.beans.BeanUtils;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -21,6 +23,12 @@ public class User {
     static {
         idGenerator = ApplicationContextTool.getBeanByClass(IdGenerator.class);
         encryption = ApplicationContextTool.getBeanByClass(Encryption.class);
+    }
+
+    public User(UserEntity userEntity) {
+        id = userEntity.getId();;
+        username = userEntity.getUsername();
+        password = userEntity.getPassword();
     }
 
     public User(String username, String password) {
@@ -49,6 +57,13 @@ public class User {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public UserEntity toEntity() {
+        UserEntity userEntity = new UserEntity();
+        BeanUtils.copyProperties(this, userEntity);
+        userEntity.setPassword(password);
+        return userEntity;
     }
 
     @Override
