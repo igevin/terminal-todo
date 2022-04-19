@@ -3,9 +3,7 @@ package com.igevin.terminaltodo.core.user.persistence.impl.mysql;
 import com.igevin.terminaltodo.core.user.User;
 import com.igevin.terminaltodo.core.user.persistence.UserEntity;
 import com.igevin.terminaltodo.core.user.persistence.UserStorageService;
-import com.igevin.terminaltodo.core.user.persistence.mock.UserStorageMock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
