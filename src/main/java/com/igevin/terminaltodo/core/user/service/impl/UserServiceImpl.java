@@ -6,6 +6,7 @@ import com.igevin.terminaltodo.core.user.event.UserCreateEvent;
 import com.igevin.terminaltodo.core.user.event.UserSwitchEvent;
 import com.igevin.terminaltodo.core.user.persistence.UserStorageService;
 import com.igevin.terminaltodo.core.user.service.UserService;
+import com.igevin.terminaltodo.core.user.state.AnonymousUser;
 import com.igevin.terminaltodo.core.user.state.CurrentUser;
 import com.igevin.terminaltodo.core.user.state.LoggedInUsers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class UserServiceImpl implements UserService {
     private LoggedInUsers loggedInUsers;
     @Autowired
     private CurrentUser currentUser;
+    @Autowired
+    private AnonymousUser anonymousUser;
     @Autowired
     private EventBus eventBus;
 
@@ -85,7 +88,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout(String username) {
         loggedInUsers.getUsers().remove(username);
-        updateCurrentUser(null);
+        User anonymous = getUser(anonymousUser.getUsername());
+        updateCurrentUser(anonymous);
     }
 
     @Override

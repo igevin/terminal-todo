@@ -20,7 +20,7 @@ public class CurrentTodoList {
     @Autowired
     private UserTodoListService userTodoListService;
     private TodoList todoList;
-    private final String anonymousUser = "anonymous";
+//    private final String anonymousUser = "anonymous";
 
     @PostConstruct
     private void init() {
@@ -30,8 +30,8 @@ public class CurrentTodoList {
     @Subscribe
     private void handUserSwitchEvent(UserSwitchEvent event) {
         this.todoList = userTodoListService.getDefaultTodoList(event.getUser().getUsername());
-        if (this.todoList == null) {
-            this.todoList = new TodoList();
-        }
+//        if (this.todoList == null) {
+//            this.todoList = new TodoList();
+//        }
     }
 }
