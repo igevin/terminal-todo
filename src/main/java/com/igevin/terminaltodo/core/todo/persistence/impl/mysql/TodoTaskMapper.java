@@ -18,7 +18,12 @@ public interface TodoTaskMapper {
     @Select("SELECT * FROM todo_task where id=#{id};")
     TodoTaskEntity getById(long id);
 
-    @Select("SELECT * FROM todo_task WHERE list_id=#{listId};")
+    @Select("<script>" +
+            "SELECT * FROM todo_task WHERE list_id=#{listId}" +
+            " <if test='checked != null'>\n" +
+            "    AND checked=#{checked}\n" +
+            " </if>" +
+            "</script>")
     List<TodoTaskEntity> listTasks(long listId, Boolean checked);
 
     @Delete("DELETE FROM todo_task where id=#{id};")
