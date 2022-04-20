@@ -1,10 +1,9 @@
-package com.igevin.terminaltodo.core;
+package com.igevin.terminaltodo.core.todo;
 
 import com.igevin.terminaltodo.core.todo.persistence.TodoTaskEntity;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoTaskService;
 import com.igevin.terminaltodo.supporting.ApplicationContextTool;
 import com.igevin.terminaltodo.supporting.id.IdGenerator;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

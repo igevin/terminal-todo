@@ -2,7 +2,6 @@ package com.igevin.terminaltodo.core.todo;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.igevin.terminaltodo.core.TodoList;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
 import com.igevin.terminaltodo.core.user.event.UserCreateEvent;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.igevin.terminaltodo.core.todo.persistence.impl;
 
-import com.igevin.terminaltodo.core.TodoList;
-import com.igevin.terminaltodo.core.TodoTask;
+import com.igevin.terminaltodo.core.todo.TodoList;
+import com.igevin.terminaltodo.core.todo.TodoTask;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
 import com.igevin.terminaltodo.core.user.User;
 import org.springframework.stereotype.Service;

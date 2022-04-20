@@ -1,7 +1,6 @@
 package com.igevin.terminaltodo.core.ui.command.impl;
 
-import com.igevin.terminaltodo.core.TodoList;
-import com.igevin.terminaltodo.core.TodoTask;
+import com.igevin.terminaltodo.core.todo.TodoTask;
 import com.igevin.terminaltodo.core.todo.CurrentTodoList;
 import com.igevin.terminaltodo.core.ui.command.Command;
 import com.igevin.terminaltodo.core.ui.command.CommandExecutor;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component(Command.UPDATE_NAME)
 public class UpdateCommandExecutor implements CommandExecutor {

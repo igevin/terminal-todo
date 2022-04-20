@@ -1,6 +1,6 @@
 package com.igevin.terminaltodo.core.todo.persistence;
 
-import com.igevin.terminaltodo.core.TodoTask;
+import com.igevin.terminaltodo.core.todo.TodoTask;
 
 import java.util.List;
 import java.util.Optional;

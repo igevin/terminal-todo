@@ -1,6 +1,6 @@
 package com.igevin.terminaltodo.core.ui.command.impl.helper;
 
-import com.igevin.terminaltodo.core.TodoTask;
+import com.igevin.terminaltodo.core.todo.TodoTask;
 import com.igevin.terminaltodo.core.todo.CurrentTodoList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

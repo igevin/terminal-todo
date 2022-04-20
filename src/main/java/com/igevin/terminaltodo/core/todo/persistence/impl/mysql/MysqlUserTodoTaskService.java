@@ -1,8 +1,7 @@
 package com.igevin.terminaltodo.core.todo.persistence.impl.mysql;
 
-import com.igevin.terminaltodo.core.TodoTask;
+import com.igevin.terminaltodo.core.todo.TodoTask;
 import com.igevin.terminaltodo.core.todo.persistence.TodoTaskEntity;
-import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

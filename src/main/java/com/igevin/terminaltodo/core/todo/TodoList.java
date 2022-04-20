@@ -1,4 +1,4 @@
-package com.igevin.terminaltodo.core;
+package com.igevin.terminaltodo.core.todo;
 
 import com.igevin.terminaltodo.core.todo.persistence.TodoListEntity;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
