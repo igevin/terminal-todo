@@ -1,10 +1,14 @@
 package com.igevin.terminaltodo.core;
 
+import com.igevin.terminaltodo.core.todo.persistence.TodoTaskEntity;
+import com.igevin.terminaltodo.core.todo.persistence.UserTodoTaskService;
 import com.igevin.terminaltodo.supporting.ApplicationContextTool;
 import com.igevin.terminaltodo.supporting.id.IdGenerator;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
 
@@ -14,14 +18,21 @@ public class TodoTask {
     private final Long id;
     private String content;
     private boolean checked;
-    private final LocalDateTime createTime = LocalDateTime.now();
+    @Setter
+    private Long listId;
+    private LocalDateTime createTime;
     private LocalDateTime updateTime;
-    @Getter(AccessLevel.NONE)
-    private IdGenerator idGenerator;
+    private static final IdGenerator idGenerator;
+    private static final UserTodoTaskService todoTaskService;
+
+    static {
+        idGenerator = ApplicationContextTool.getBeanByClass(IdGenerator.class);
+        todoTaskService = ApplicationContextTool.getSpecificBean("userTodoTaskService", UserTodoTaskService.class);
+    }
 
     private void init() {
+        createTime = LocalDateTime.now();
         updateTime = createTime;
-        idGenerator = ApplicationContextTool.getBeanByClass(IdGenerator.class);
     }
 
     public TodoTask(String content) {
@@ -29,6 +40,19 @@ public class TodoTask {
         id = idGenerator.nextId();
         this.content = content;
         checked = false;
+    }
+    public TodoTask(String content, long listId) {
+        this(content);
+        this.listId = listId;
+    }
+
+    public TodoTask(TodoTaskEntity entity) {
+        id = entity.getId();;
+        content = entity.getContent();
+        checked = entity.isChecked();
+        listId = entity.getListId();
+        createTime = entity.getCreateTime();
+        updateTime = entity.getUpdateTime();
     }
 
     private void updateUpdateTime() {
@@ -42,6 +66,7 @@ public class TodoTask {
     private TodoTask changeTaskStatus(boolean checked) {
         updateUpdateTime();
         this.checked = checked;
+        todoTaskService.updateTodoTask(this);
         return this;
     }
 
@@ -62,5 +87,11 @@ public class TodoTask {
     public TodoTask modifyTask(String content, boolean checked) {
         this.checked = checked;
         return modifyTask(content);
+    }
+
+    public TodoTaskEntity toEntity() {
+        TodoTaskEntity entity = new TodoTaskEntity();
+        BeanUtils.copyProperties(this, entity);
+        return entity;
     }
 }

@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserTodoTaskService {
-    TodoTask createTodoTask(TodoTask todoTask, long todoListId);
+    TodoTask createTodoTask(TodoTask todoTask);
     TodoTask updateTodoTask(TodoTask todoTask);
     Optional<TodoTask> getTaskById(long taskId);
     void removeTask(long taskId);
-    List<TodoTask> listAllTasks(long todoListId);
-    List<TodoTask> listUncheckedTasks(long todoListId);
-    List<TodoTask> listCheckedTasks(long todoListId);
+    List<TodoTask> listTasks(long todoListId, Boolean checked);
 }

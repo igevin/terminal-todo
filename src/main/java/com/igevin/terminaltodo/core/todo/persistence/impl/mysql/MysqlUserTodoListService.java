@@ -38,36 +38,38 @@ public class MysqlUserTodoListService implements UserTodoListService {
 
     @Override
     public TodoList getDefaultTodoList(User user) {
-        return null;
+        return getDefaultTodoList(user.getUsername());
     }
 
     @Override
     public TodoTask addTask(String content, long todoListId) {
-        return new TodoTask(content);
+        TodoTask todoTask = new TodoTask(content, todoListId);
+        todoTaskService.createTodoTask(todoTask);
+        return todoTask;
     }
 
     @Override
     public Optional<TodoTask> getTaskById(long taskId) {
-        return Optional.empty();
+        return todoTaskService.getTaskById(taskId);
     }
 
     @Override
     public void removeTask(long taskId) {
-
+        todoTaskService.removeTask(taskId);
     }
 
     @Override
     public List<TodoTask> listAllTasks(long todoListId) {
-        return null;
+        return todoTaskService.listTasks(todoListId, null);
     }
 
     @Override
     public List<TodoTask> listUncheckedTasks(long todoListId) {
-        return new ArrayList<>();
+        return todoTaskService.listTasks(todoListId, false);
     }
 
     @Override
     public List<TodoTask> listCheckedTasks(long todoListId) {
-        return null;
+        return todoTaskService.listTasks(todoListId, true);
     }
 }

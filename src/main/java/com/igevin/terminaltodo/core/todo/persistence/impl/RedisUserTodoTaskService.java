@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class RedisUserTodoTaskService implements UserTodoTaskService {
     @Override
-    public TodoTask createTodoTask(TodoTask todoTask, long todoListId) {
+    public TodoTask createTodoTask(TodoTask todoTask) {
         return null;
     }
 
@@ -30,17 +30,8 @@ public class RedisUserTodoTaskService implements UserTodoTaskService {
     }
 
     @Override
-    public List<TodoTask> listAllTasks(long todoListId) {
+    public List<TodoTask> listTasks(long todoListId, Boolean checked) {
         return null;
     }
 
-    @Override
-    public List<TodoTask> listUncheckedTasks(long todoListId) {
-        return null;
-    }
-
-    @Override
-    public List<TodoTask> listCheckedTasks(long todoListId) {
-        return null;
-    }
 }
