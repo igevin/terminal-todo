@@ -4,6 +4,7 @@ import com.igevin.terminaltodo.core.todo.persistence.TodoListEntity;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
 import com.igevin.terminaltodo.supporting.ApplicationContextTool;
 import com.igevin.terminaltodo.supporting.id.IdGenerator;
+import com.igevin.terminaltodo.supporting.serializer.Serializer;
 import lombok.Getter;
 import org.springframework.beans.BeanUtils;
 
@@ -18,10 +19,12 @@ public class TodoList {
     private LocalDateTime createTime = LocalDateTime.now();
     private static final UserTodoListService userTodoListService;
     private static final IdGenerator idGenerator;
+    private static final Serializer serializer;
 
     static {
         idGenerator = ApplicationContextTool.getBeanByClass(IdGenerator.class);
         userTodoListService = ApplicationContextTool.getSpecificBean("userTodoListService", UserTodoListService.class);
+        serializer = ApplicationContextTool.getBeanByClass(Serializer.class);
     }
 
     public TodoList() {
@@ -84,6 +87,11 @@ public class TodoList {
         TodoListEntity todoListEntity = new TodoListEntity();
         BeanUtils.copyProperties(this, todoListEntity);
         return todoListEntity;
+    }
+
+    public void exportTasks(String fileFullName) {
+        List<TodoTask> tasks = listAllTasks();
+        serializer.serializeToFile(tasks, fileFullName);
     }
 
 
