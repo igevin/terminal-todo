@@ -2,12 +2,11 @@ package com.igevin.terminaltodo.core.user.persistence.config;
 
 import com.igevin.terminaltodo.core.user.persistence.UserStorageService;
 import com.igevin.terminaltodo.core.user.persistence.impl.mysql.MysqlUserStorageService;
-import com.igevin.terminaltodo.core.user.persistence.impl.RedisUserStorageService;
+import com.igevin.terminaltodo.core.user.persistence.impl.redis.RedisUserStorageService;
 import com.igevin.terminaltodo.supporting.config.properties.PersistenceConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 
 @Configuration
 public class UserPersistenceConfig {

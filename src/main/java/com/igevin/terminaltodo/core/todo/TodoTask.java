@@ -29,14 +29,20 @@ public class TodoTask {
         todoTaskService = ApplicationContextTool.getSpecificBean("userTodoTaskService", UserTodoTaskService.class);
     }
 
-    private void init() {
+//    private void init() {
+//        createTime = LocalDateTime.now();
+//        updateTime = createTime;
+//    }
+
+    public TodoTask() {
+        id = idGenerator.nextId();
         createTime = LocalDateTime.now();
         updateTime = createTime;
     }
 
     public TodoTask(String content) {
-        init();
-        id = idGenerator.nextId();
+        this();
+//        id = idGenerator.nextId();
         this.content = content;
         checked = false;
     }
@@ -80,6 +86,7 @@ public class TodoTask {
     public TodoTask modifyTask(String content) {
         updateUpdateTime();
         this.content = content;
+        todoTaskService.updateTodoTask(this);
         return this;
     }
 
