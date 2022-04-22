@@ -11,4 +11,8 @@ public interface UserTodoTaskService {
     Optional<TodoTask> getTaskById(long taskId);
     void removeTask(long taskId);
     List<TodoTask> listTasks(long todoListId, Boolean checked);
+
+    void clearTasks(long todoListId);
+    void addTasks(List<TodoTask> tasks, long todoListId);
+    void addOrUpdateTasks(List<TodoTask> tasks, long todoListId);
 }

@@ -43,4 +43,19 @@ public class MysqlUserTodoTaskService implements UserTodoTaskService {
         return entities.stream().map(TodoTask::new).collect(Collectors.toList());
     }
 
+    @Override
+    public void clearTasks(long todoListId) {
+
+    }
+
+    @Override
+    public void addTasks(List<TodoTask> tasks, long todoListId) {
+
+    }
+
+    @Override
+    public void addOrUpdateTasks(List<TodoTask> tasks, long todoListId) {
+
+    }
+
 }

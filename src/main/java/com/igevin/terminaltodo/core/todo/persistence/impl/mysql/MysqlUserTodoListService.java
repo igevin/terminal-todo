@@ -71,4 +71,19 @@ public class MysqlUserTodoListService implements UserTodoListService {
     public List<TodoTask> listCheckedTasks(long todoListId) {
         return todoTaskService.listTasks(todoListId, true);
     }
+
+    @Override
+    public void clearTasks(long todoListId) {
+        todoTaskService.clearTasks(todoListId);
+    }
+
+    @Override
+    public void addTasks(List<TodoTask> tasks, long todoListId) {
+        todoTaskService.addTasks(tasks, todoListId);
+    }
+
+    @Override
+    public void addOrUpdateTasks(List<TodoTask> tasks, long todoListId) {
+        todoTaskService.addOrUpdateTasks(tasks, todoListId);
+    }
 }

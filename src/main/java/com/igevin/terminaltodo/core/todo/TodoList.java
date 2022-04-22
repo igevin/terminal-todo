@@ -94,5 +94,18 @@ public class TodoList {
         serializer.serializeToFile(tasks, fileFullName);
     }
 
+    public List<TodoTask> overwriteTasks(String fileFullName) {
+        List<TodoTask> tasks = serializer.deserializeListFromFile(fileFullName, TodoTask.class);
+        userTodoListService.clearTasks(this.id);
+        userTodoListService.addTasks(tasks, this.id);
+        return this.listAllTasks();
+    }
+
+    public List<TodoTask> importTasks(String fileFullName) {
+        List<TodoTask> tasks = serializer.deserializeListFromFile(fileFullName, TodoTask.class);
+        userTodoListService.addOrUpdateTasks(tasks, this.id);
+        return this.listAllTasks();
+    }
+
 
 }

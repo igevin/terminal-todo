@@ -23,4 +23,8 @@ public interface UserTodoListService {
     List<TodoTask> listAllTasks(long todoListId);
     List<TodoTask> listUncheckedTasks(long todoListId);
     List<TodoTask> listCheckedTasks(long todoListId);
+
+    void clearTasks(long todoListId);
+    void addTasks(List<TodoTask> tasks, long todoListId);
+    void addOrUpdateTasks(List<TodoTask> tasks, long todoListId);
 }

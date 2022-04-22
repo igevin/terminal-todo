@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,28 +67,71 @@ public class RedisUserTodoTaskService implements UserTodoTaskService {
         String detailKey = detailPrefix + taskId;
         redisTemplate.delete(detailKey);
         String listKey = listPrefix + todoTask.getListId();
-        redisTemplate.opsForList().remove(listKey, 1, todoTaskStr);
+        redisTemplate.opsForList().remove(listKey, 1, String.valueOf(taskId));
     }
 
     @Override
     public List<TodoTask> listTasks(long todoListId, Boolean checked) {
-        String key = listPrefix + todoListId;
-        Long size = redisTemplate.opsForList().size(key);
-        if (size == null) {
-            return null;
-        }
-        List<String> taskIds = redisTemplate.opsForList().range(key, 0, size - 1);
-        if (taskIds == null) {
-            return null;
-        }
-        List<TodoTask> tasks =taskIds.stream().map(x -> getTaskStr(Long.parseLong(x)))
+//        String key = listPrefix + todoListId;
+//        Long size = redisTemplate.opsForList().size(key);
+//        if (size == null) {
+//            return null;
+//        }
+//        List<String> taskIds = redisTemplate.opsForList().range(key, 0, size - 1);
+//        if (taskIds == null) {
+//            return null;
+//        }
+//        List<TodoTask> tasks =taskIds.stream().map(x -> getTaskStr(Long.parseLong(x)))
+//                .filter(Objects::nonNull)
+//                .map(this::deserializeTask)
+//                .collect(Collectors.toList());
+        List<Long> taskIds = getTaskIds(todoListId);
+        List<TodoTask> tasks =taskIds.stream().map(this::getTaskStr)
                 .filter(Objects::nonNull)
                 .map(this::deserializeTask)
                 .collect(Collectors.toList());
+
         if (checked == null) {
             return tasks;
         }
         return tasks.stream().filter(x -> x.isChecked() == checked).collect(Collectors.toList());
+    }
+
+    private List<Long> getTaskIds(long todoListId) {
+        String key = listPrefix + todoListId;
+        Long size = redisTemplate.opsForList().size(key);
+        if (size == null) {
+            return new ArrayList<>();
+        }
+        List<String> taskIds = redisTemplate.opsForList().range(key, 0, size - 1);
+        if (taskIds == null) {
+            return new ArrayList<>();
+        }
+        return taskIds.stream().map(Long::parseLong).collect(Collectors.toList());
+    }
+
+    @Override
+    public void clearTasks(long todoListId) {
+        List<Long> taskIds = getTaskIds(todoListId);
+        taskIds.forEach(this::removeTask);
+
+    }
+
+    @Override
+    public void addTasks(List<TodoTask> tasks, long todoListId) {
+        tasks.forEach(this::createTodoTask);
+    }
+
+    @Override
+    public void addOrUpdateTasks(List<TodoTask> tasks, long todoListId) {
+        Set<Long> taskIdSet = new HashSet<>(getTaskIds(todoListId));
+        tasks.forEach(task -> {
+            if (taskIdSet.contains(task.getId())) {
+                this.updateTodoTask(task);
+                return;
+            }
+            createTodoTask(task);
+        });
     }
 
 }

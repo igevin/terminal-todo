@@ -1,6 +1,5 @@
 package com.igevin.terminaltodo.core.todo.persistence.impl.redis;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.igevin.terminaltodo.core.todo.TodoList;
 import com.igevin.terminaltodo.core.todo.TodoTask;
 import com.igevin.terminaltodo.core.todo.persistence.UserTodoListService;
@@ -79,6 +78,21 @@ public class RedisUserTodoListService implements UserTodoListService {
     @Override
     public List<TodoTask> listCheckedTasks(long todoListId) {
         return todoTaskService.listTasks(todoListId, true);
+    }
+
+    @Override
+    public void clearTasks(long todoListId) {
+        todoTaskService.clearTasks(todoListId);
+    }
+
+    @Override
+    public void addTasks(List<TodoTask> tasks, long todoListId) {
+        todoTaskService.addTasks(tasks, todoListId);
+    }
+
+    @Override
+    public void addOrUpdateTasks(List<TodoTask> tasks, long todoListId) {
+        todoTaskService.addOrUpdateTasks(tasks, todoListId);
     }
 
 }
