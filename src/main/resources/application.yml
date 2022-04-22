@@ -10,4 +10,4 @@ mybatis:
     use-generated-keys: true
 terminal-todo:
   persistence:
-    storage: redis #mysql or redis
+    storage: mysql #mysql or redis

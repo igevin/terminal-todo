@@ -28,6 +28,8 @@ public interface TodoTaskMapper {
 
     @Delete("DELETE FROM todo_task where id=#{id};")
     Integer removeTodoTaskById(long id);
+    @Delete("DELETE FROM todo_task where list_id=#{listId};")
+    Integer clearTodoTasks(long listId);
 
 
 }

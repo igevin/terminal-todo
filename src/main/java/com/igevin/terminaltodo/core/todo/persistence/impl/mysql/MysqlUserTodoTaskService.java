@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,17 +46,26 @@ public class MysqlUserTodoTaskService implements UserTodoTaskService {
 
     @Override
     public void clearTasks(long todoListId) {
-
+        todoTaskMapper.clearTodoTasks(todoListId);
     }
 
     @Override
     public void addTasks(List<TodoTask> tasks, long todoListId) {
-
+        tasks.forEach(this::createTodoTask);
     }
 
     @Override
     public void addOrUpdateTasks(List<TodoTask> tasks, long todoListId) {
+        Set<Long> currentTaskIdSet = listTasks(todoListId, null)
+                .stream().map(TodoTask::getId).collect(Collectors.toSet());
 
+        tasks.stream().parallel().forEach(task -> {
+            if (currentTaskIdSet.contains(task.getId())) {
+                this.updateTodoTask(task);
+                return;
+            }
+            this.createTodoTask(task);
+        });
     }
 
 }
