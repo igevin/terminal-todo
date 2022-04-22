@@ -16,7 +16,6 @@ public class ApplicationRun implements ApplicationRunner {
     private AnonymousUser anonymous;
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("test\n");
         User anonymousUser = userService.getUser(anonymous.getUsername());
         if (anonymousUser == null) {
             userService.createUser(anonymous.getUsername(), anonymous.getPassword());
