@@ -24,7 +24,7 @@ public class ExportCommandExecutor implements CommandExecutor {
     }
 
     private String getFileFullNameFromCommand(String line) {
-        List<String> segments = commandParseHelper.getAsNSegments(line, 3);
+        List<String> segments = commandParseHelper.getAsNSegments(line, 2);
         if (segments.size() < 2) {
             throw new RuntimeException("invalid parameters");
         }

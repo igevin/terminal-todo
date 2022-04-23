@@ -28,7 +28,7 @@ public class ImportCommandExecutor implements CommandExecutor {
             throw new RuntimeException("invalid parameters");
         }
         String param = segments.get(1).toLowerCase();
-        String fileFullName = "";
+        String fileFullName;
         if ("--overwrite".equalsIgnoreCase(param)) {
             fileFullName = segments.get(2);
             todoList.getTodoList().overwriteTasks(fileFullName);
