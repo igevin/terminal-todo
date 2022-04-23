@@ -10,7 +10,9 @@ public enum Command {
     UNCHECK,
     UPDATE,
     DELETE,
-    USER;
+    USER,
+    EXPORT,
+    IMPORT;
 
     public static Command parseFromInput(String line) {
         return Stream.of(values())
@@ -26,4 +28,6 @@ public enum Command {
     public static final String UPDATE_NAME = "UPDATE";
     public static final String DELETE_NAME = "DELETE";
     public static final String USER_NAME = "USER";
+    public static final String EXPORT_NAME = "EXPORT";
+    public static final String IMPORT_NAME = "IMPORT";
 }
