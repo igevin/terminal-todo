@@ -84,3 +84,25 @@ update 任务id 读一小时书
 ```shell
 delete 任务id
 ```
+
+## 3. 用户待办事项导入导出
+
+### （1）导出数据
+
+```shell
+export /tmp/data
+```
+
+其中，`/tmp/data`为任意有效的文件地址，绝对路径、相对路径均可
+
+### （2）导入并覆盖原数据
+
+```shell
+import --overwrite /tmp/data
+```
+
+### （3）导入数据，与当前已有数据合并
+
+```shell
+import /tmp/data
+```

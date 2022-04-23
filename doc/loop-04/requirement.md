@@ -20,7 +20,7 @@ export /tmp/data
 import --overwrite /tmp/data
 ```
 
-（2）导入数据，与当前已有数据合并
+（3）导入数据，与当前已有数据合并
 
 ```shell
 import /tmp/data
